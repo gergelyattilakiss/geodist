@@ -54,8 +54,8 @@ def writeToCSV(orig_file, output_file, distance_array, duration_array):
     original.to_csv(output_file, sep=';')
 
 def main():
-    distance_array, duration_array = distanceQueryWrapper('input/kamera_test.csv', 'kamera1_koord', 'kamera2_koord')
-    writeToCSV('input/kamera_test.csv', 'output/kamera_ext.csv', distance_array, duration_array)
+    distance_array, duration_array = distanceQueryWrapper('input/kamera_koordinatak.csv', 'kamera1_koord', 'kamera2_koord')
+    writeToCSV('input/kamera_koordinatak.csv', 'output/kamera_ext.csv', distance_array, duration_array)
 
 
 if __name__=='__main__':
