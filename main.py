@@ -1,10 +1,11 @@
 import csv
-import numpy as np
-import requests, json
-import os
+import json
+import googlemaps
 
-API = 'AIzaSyCrw2zzf3fwPrRj6Ck68FBO6cIoBW03snc'
+
+API = json.load(open('secret.json','r'))['API']
 url ='https://maps.googleapis.com/maps/api/distancematrix/json?'
+gmaps = googlemaps.Client(key=API)
 
 
 with open('kamera_test.csv', 'r') as kam_csv:
@@ -18,13 +19,12 @@ with open('kamera_test.csv', 'r') as kam_csv:
         # url variable store url
         # Get method of requests module
         # return response object
-        r = requests.get(url + 'origins = ' + source[0] + " " + source[1] +
-                    '&destinations = ' + dest[0] + " " + dest[1] +
-                    '&key = ' + API+
-                    '&mode=DRIVING')
+        distance = gmaps.distance_matrix([source[0]+ ' ' +source[1]],[dest[0]+ ' ' +dest[1]],mode='driving')['rows'][0]['elements'][0]
         
-        distArray.append(r.json)
-    
+        distArray.append(distance)
+
+        
 with open('distance.json', 'w', encoding='utf-8') as jsonf:
         jsonString = json.dumps(distArray, indent=4)
         jsonf.write(jsonString)
+
